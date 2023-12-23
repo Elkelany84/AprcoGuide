@@ -3,9 +3,9 @@ import 'package:flutter_auth/constants.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
-  final Function press;
+  final Function? press;
   const AlreadyHaveAnAccountCheck({
-    Key key,
+    Key? key,
     this.login = true,
     this.press,
   }) : super(key: key);
@@ -15,20 +15,20 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          login ? "Don’t have an Account ? " : "Already have an Account ? ",
-          style: TextStyle(color: kPrimaryColor),
-        ),
         GestureDetector(
-          onTap: press,
+          onTap: press as void Function()?,
           child: Text(
-            login ? "Sign Up" : "Sign In",
+            login ? "   حساب جديد     " : "    دخـــول",
             style: TextStyle(
               color: kPrimaryColor,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,fontSize: 18.0
             ),
           ),
-        )
+        ),
+        Text(
+          login ? " ليس لديك حساب ؟    " : "     لديك حساب بالفعل ؟ ",
+          style: TextStyle(color: kPrimaryColor, fontSize: 18.0),
+        ),
       ],
     );
   }
