@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_auth/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/categories/glasses/glassreviews.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/regions.dart';
+import 'package:flutter_auth/components/constants.dart';
+import 'package:flutter_auth/components/drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_auth/Screens/categories/glasses/glassreviews.dart';
-import 'package:flutter_auth/components/drawer.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:flutter_auth/components/ad_helper.dart';
-import 'package:flutter_auth/components/advalue.dart';
 
 class Glasses extends StatefulWidget {
   @override
@@ -117,20 +114,11 @@ class _GlassesState extends State<Glasses> {
                                 Icons.call,
                                 color: Colors.purple[900],
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 var _phone = data.docs[index]['tel1'];
-                                setState(() {
-                                  Future<void> _makePhoneCall(
-                                      String url) async {
-                                    if (await canLaunch(url)) {
-                                      await launch(url);
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  }
-
-                                  _launched = _makePhoneCall('tel:$_phone');
-                                });
+                                final Uri url =
+                                    Uri(scheme: "tel", path: _phone);
+                                await launchUrl(url);
                               },
                             )
                           : null,
@@ -178,7 +166,8 @@ class _GlassesState extends State<Glasses> {
                                 ),
                               );
                             },
-                          ),   trailing: IconButton(
+                          ),
+                          trailing: IconButton(
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
@@ -250,5 +239,4 @@ class _GlassesState extends State<Glasses> {
   //     dropDownItems.add(newItem);
   //   }
   //   }
-
 }

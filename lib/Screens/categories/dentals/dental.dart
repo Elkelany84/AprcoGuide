@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_auth/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/categories/dentals/dentalreviews.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/regions.dart';
+import 'package:flutter_auth/components/constants.dart';
+import 'package:flutter_auth/components/drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_auth/Screens/categories/dentals/dentalreviews.dart';
-import 'package:flutter_auth/components/drawer.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:flutter_auth/components/ad_helper.dart';
-import 'package:flutter_auth/components/advalue.dart';
 
 class Dentals extends StatefulWidget {
   @override
@@ -18,7 +15,6 @@ class Dentals extends StatefulWidget {
 }
 
 class _DentalsState extends State<Dentals> {
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +50,7 @@ class _DentalsState extends State<Dentals> {
       child: Column(
         children: [
           Flexible(
-                  child: StreamBuilder(
+            child: StreamBuilder(
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
@@ -82,9 +78,10 @@ class _DentalsState extends State<Dentals> {
                     isEqualTo: selectedRegion,
                   )
                   .snapshots(),
-            ),)
+            ),
+          )
           // ),Advalue(),
-      ],
+        ],
       ),
     );
   }
@@ -108,29 +105,23 @@ class _DentalsState extends State<Dentals> {
           child: ListView.builder(
               itemCount: data.docs.length,
               itemBuilder: (BuildContext context, int index) {
-         return Card(
+                return Card(
                   color: Colors.white,
                   child: ExpansionTile(
-                      trailing: data.docs[index]['tel1'] != null ? IconButton(
-                        icon: Icon(
-                          Icons.call,
-                          color: Colors.purple[900],
-                        ),
-                        onPressed: () {
-                          var _phone = data.docs[index]['tel1'];
-                          setState(() {
-                            Future<void> _makePhoneCall(String url) async {
-                              if (await canLaunch(url)) {
-                                await launch(url);
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                            }
-
-                            _launched = _makePhoneCall('tel:$_phone');
-                          });
-                        },
-                      ): null,
+                      trailing: data.docs[index]['tel1'] != null
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.call,
+                                color: Colors.purple[900],
+                              ),
+                              onPressed: () async {
+                                var _phone = data.docs[index]['tel1'];
+                                final Uri url =
+                                    Uri(scheme: "tel", path: _phone);
+                                await launchUrl(url);
+                              },
+                            )
+                          : null,
                       title: Text(data.docs[index]['name'],
                           style: kCardTextStyle, textAlign: TextAlign.start),
                       subtitle: Text(
@@ -144,10 +135,11 @@ class _DentalsState extends State<Dentals> {
                           title: Row(
                             children: [
                               TextButton(
-                                                          child: Text('أكتب أو شاهد التقييمات',
+                                child: Text('أكتب أو شاهد التقييمات',
                                     style: kCardSubtitleTextStyle,
-                                    textAlign: TextAlign.start),onPressed: (){
-                                      Navigator.push(
+                                    textAlign: TextAlign.start),
+                                onPressed: () {
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewToDo(
@@ -155,7 +147,7 @@ class _DentalsState extends State<Dentals> {
                                       ),
                                     ),
                                   );
-                                    },
+                                },
                               ),
                             ],
                           ),
@@ -174,7 +166,8 @@ class _DentalsState extends State<Dentals> {
                                 ),
                               );
                             },
-                          ),   trailing: IconButton(
+                          ),
+                          trailing: IconButton(
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
@@ -205,7 +198,8 @@ class _DentalsState extends State<Dentals> {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String currency in pharmRegion) {
       var newItem = DropdownMenuItem(
-        child: Row(mainAxisAlignment: MainAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               currency,
@@ -245,5 +239,4 @@ class _DentalsState extends State<Dentals> {
   //     dropDownItems.add(newItem);
   //   }
   //   }
-
 }

@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_auth/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/categories/hospitals/hospitalreviews.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/regions.dart';
+import 'package:flutter_auth/components/constants.dart';
+import 'package:flutter_auth/components/drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_auth/Screens/categories/hospitals/hospitalreviews.dart';
-import 'package:flutter_auth/components/drawer.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:flutter_auth/components/ad_helper.dart';
-import 'package:flutter_auth/components/advalue.dart';
 
 class Hospitals extends StatefulWidget {
   @override
@@ -99,7 +96,7 @@ class _HospitalsState extends State<Hospitals> {
   }
 
   Widget _drawScreen(BuildContext context, QuerySnapshot data) {
-    Future<void> _launched;
+    Future<void>? _launched;
     // var _phone = '01066932261';
     return Column(
       children: [
@@ -118,20 +115,29 @@ class _HospitalsState extends State<Hospitals> {
                                 Icons.call,
                                 color: Colors.purple[900],
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 var _phone = data.docs[index]['tel1'];
-                                setState(() {
-                                  Future<void> _makePhoneCall(
-                                      String url) async {
-                                    if (await canLaunch(url)) {
-                                      await launch(url);
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  }
-
-                                  _launched = _makePhoneCall('tel:$_phone');
-                                });
+                                final Uri url =
+                                    Uri(scheme: "tel", path: _phone);
+                                // if (await canLaunchUrl(url)) {
+                                await launchUrl(url);
+                                // } else {
+                                //   print("can not launch this url");
+                                // }
+                                // setState(() async {
+                                //
+                                //
+                                //   // Future<void> _makePhoneCall(
+                                //   //     String url) async {
+                                //   //   if (await canLaunchUrlString(url)) {
+                                //   //     await launchUrlString((url));
+                                //   //   } else {
+                                //   //     throw 'Could not launch $url';
+                                //   //   }
+                                //   // }
+                                //   //
+                                //   // _launched = _makePhoneCall('tel:$_phone');
+                                // });
                               },
                             )
                           : null,
@@ -179,7 +185,8 @@ class _HospitalsState extends State<Hospitals> {
                                 ),
                               );
                             },
-                          ),   trailing: IconButton(
+                          ),
+                          trailing: IconButton(
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
@@ -251,5 +258,4 @@ class _HospitalsState extends State<Hospitals> {
   //     dropDownItems.add(newItem);
   //   }
   //   }
-
 }
