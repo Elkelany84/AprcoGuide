@@ -1,28 +1,13 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/components/constants.dart';
 import 'package:flutter_auth/components/drawer.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:flutter_auth/Screens/Signup/components/body.dart';
 // import 'package:flutter_auth/Screens/Login/components/body.dart';
 import 'package:flutter_auth/components/reusablecard.dart';
-import 'package:flutter_auth/components/constants.dart';
-import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
-import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
-import 'package:flutter_auth/Screens/categories/labs/lab.dart';
-import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
-import 'package:flutter_auth/Screens/categories/clinics/clinic.dart';
-import 'package:flutter_auth/Screens/categories/glasses/glass.dart';
-import 'package:flutter_auth/Screens/categories/dentals/dental.dart';
-import 'package:flutter_auth/Screens/categories/devices/device.dart';
-// import 'package:flutter_auth/components/drawer.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:flutter_auth/components/ad_helper.dart';
-import 'package:flutter_auth/components/advalue.dart';
-// import 'package:flutter_auth/get_services/theme_services.dart';
-// import 'package:get/get.dart';
-import 'package:flutter_auth/get_services/notification_services.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:in_app_update/in_app_update.dart';
+// import 'package:in_app_update/in_app_update.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -30,22 +15,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late var notifyHelper;
+  // late var notifyHelper;
 
-  AppUpdateInfo? _updateInfo;
+  // AppUpdateInfo? _updateInfo;
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   bool _flexibleUpdateAvailable = false;
 
-  Future<void> checkForUpdate() async {
-    InAppUpdate.checkForUpdate().then((info) {
-      setState(() {
-        _updateInfo = info;
-      });
-    }).catchError((e) {
-      showSnack(e.toString());
-    });
-  }
+  // Future<void> checkForUpdate() async {
+  //   InAppUpdate.checkForUpdate().then((info) {
+  //     setState(() {
+  //       _updateInfo = info;
+  //     });
+  //   }).catchError((e) {
+  //     showSnack(e.toString());
+  //   });
+  // }
 
   void showSnack(String text) {
     if (_scaffoldKey.currentContext != null) {
@@ -56,15 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
-        // ignore: unnecessary_statements
-        ? () {
-            InAppUpdate.performImmediateUpdate()
-                // ignore: invalid_return_type_for_catch_error
-                .catchError((e) => showSnack(e.toString()));
-          }
-        // ignore: unnecessary_statements
-        : null;
+    // _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
+    // ignore: unnecessary_statements
+    // ? () {
+    // InAppUpdate.performImmediateUpdate()
+    // ignore: invalid_return_type_for_catch_error
+    // .catchError((e) => showSnack(e.toString()));
+    // }
+    // ignore: unnecessary_statements
+    // : null;
     //                 void Force() {
     //   InAppUpdate.performImmediateUpdate()
     //       .catchError((e) => showSnack(e.toString()));
@@ -76,9 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
     fbm.subscribeToTopic('aaamoney');
     fbm.subscribeToTopic('bbbmoney');
     fbm.subscribeToTopic('cccmoney');
-    notifyHelper = Notifyhelper();
-    notifyHelper.initializeNotification();
-    notifyHelper.requestIOSPermissions;
+    // notifyHelper = Notifyhelper();
+    // notifyHelper.initializeNotification();
+    // notifyHelper.requestIOSPermissions;
   }
 
   @override
@@ -89,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer:drawer(context),
+      drawer: drawer(context),
       //  TextButton(
       //   onPressed: () {
       //     _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
@@ -129,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: Text(
           'الدليـــل الطبـــى',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),
+          style: kReusableTextStyle,
         ),
       ),
       // drawer: drawer(context),

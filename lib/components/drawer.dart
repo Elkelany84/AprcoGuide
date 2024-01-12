@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/categories/search/search.dart';
-import 'package:flutter_auth/Screens/shiftscalendar/settings_wardia.dart';
-// import 'package:flutter_auth/Screens/news/tab_screen.dart';
-import 'package:flutter_auth/Screens/shiftscalendar/wardia1.dart';
-import 'package:flutter_auth/Screens/shiftscalendar/wardia2.dart';
-import 'package:flutter_auth/Screens/shiftscalendar/wardia3.dart';
-import 'package:flutter_auth/Screens/shiftscalendar/wardia4.dart';
-import 'package:flutter_auth/Screens/tabs_admin/aprco.dart';
-import 'package:flutter_auth/components/constants.dart';
-import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
-import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
-import 'package:flutter_auth/Screens/categories/labs/lab.dart';
-import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
 import 'package:flutter_auth/Screens/categories/clinics/clinic.dart';
-import 'package:flutter_auth/Screens/categories/glasses/glass.dart';
 import 'package:flutter_auth/Screens/categories/dentals/dental.dart';
 import 'package:flutter_auth/Screens/categories/devices/device.dart';
+import 'package:flutter_auth/Screens/categories/glasses/glass.dart';
+import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
+import 'package:flutter_auth/Screens/categories/labs/lab.dart';
+import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
 import 'package:flutter_auth/Screens/categories/suggests/suggest.dart';
+import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
 import 'package:flutter_auth/Screens/homescreen.dart';
+import 'package:flutter_auth/components/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_auth/Screens/Login/login_screen.dart';
-import 'package:flutter_auth/Screens/shiftscalendar/custom_wardia.dart';
 
 Widget drawer(BuildContext context) {
   return Drawer(
@@ -282,26 +271,26 @@ Widget drawer(BuildContext context) {
             style: kDrawerTextStyle.copyWith(color: Colors.orange[900]),
           ),
           onTap: () {
-            Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>Suggest()))
+            Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Suggest()))
                 .then((value) => Navigator.pop(context));
           },
         ),
-        ListTile(
-          leading: FaIcon(
-            FontAwesomeIcons.edit,
-            color: Colors.purple,
-          ),
-          title: Text(
-            'Admin Page',
-            style: kDrawerTextStyle.copyWith(color: Colors.orange[900]),
-          ),
-          onTap: () async {
-            Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AdminScreen()))
-                .then((value) => Navigator.pop(context));
-          },
-        ),
+        // ListTile(
+        //   leading: FaIcon(
+        //     FontAwesomeIcons.edit,
+        //     color: Colors.purple,
+        //   ),
+        //   title: Text(
+        //     'Admin Page',
+        //     style: kDrawerTextStyle.copyWith(color: Colors.orange[900]),
+        //   ),
+        //   onTap: () async {
+        //     Navigator.push(context,
+        //             MaterialPageRoute(builder: (context) => AdminScreen()))
+        //         .then((value) => Navigator.pop(context));
+        //   },
+        // ),
         // ListTile(
         //   leading: FaIcon(
         //     FontAwesomeIcons.doorOpen,

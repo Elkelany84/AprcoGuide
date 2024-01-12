@@ -1,3 +1,5 @@
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/categories/clinics/clinic.dart';
 import 'package:flutter_auth/Screens/categories/dentals/dental.dart';
@@ -7,51 +9,39 @@ import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
 import 'package:flutter_auth/Screens/categories/labs/lab.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
 import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
-import 'package:flutter_auth/Screens/tabs_admin/tabs_screen.dart';
-// import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
-import 'package:flutter_auth/constants.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 // import 'package:flutter_auth/get_services/theme.dart';
 // import 'package:flutter_auth/get_services/theme_services.dart';
 import 'Screens/homescreen.dart';
-// import 'package:flutter_auth/Screens/news/tab_screen.dart';
-
-// import 'Screens/Welcome/components/body.dart';
-// import 'Screens/Login/login_screen.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:change_app_package_name/change_app_package_name.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:get/get.dart';
 // import 'package:get_storage/get_storage.dart';
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    // description
-    importance: Importance.high,
-    playSound: true);
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print('A bg message just showed up :  ${message.messageId}');
-}
+// const AndroidNotificationChannel channel = AndroidNotificationChannel(
+//     'high_importance_channel', // id
+//     'High Importance Notifications', // title
+//     // description
+//     importance: Importance.high,
+//     playSound: true);
+//
+// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   print('A bg message just showed up :  ${message.messageId}');
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await GetStorage.init();
   // MobileAds.instance.initialize();
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
   Widget homeScreen = HomeScreen();
 
   // User user = await FirebaseAuth.instance.currentUser;
@@ -75,47 +65,46 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-              
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ));
-      }
-    });
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? android = message.notification?.android;
+    //   if (notification != null && android != null) {
+    //     flutterLocalNotificationsPlugin.show(
+    //         notification.hashCode,
+    //         notification.title,
+    //         notification.body,
+    //         NotificationDetails(
+    //           android: AndroidNotificationDetails(
+    //             channel.id,
+    //             channel.name,
+    //             color: Colors.blue,
+    //             playSound: true,
+    //             icon: '@mipmap/ic_launcher',
+    //           ),
+    //         ));
+    //   }
+    // });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        showDialog(
-            context: context,
-            builder: (_) {
-              return AlertDialog(
-                title: Text(notification.title!),
-                content: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(notification.body!)],
-                  ),
-                ),
-              );
-            });
-      }
-    });
+    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    //   print('A new onMessageOpenedApp event was published!');
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? android = message.notification?.android;
+    //   if (notification != null && android != null) {
+    //     showDialog(
+    //         context: context,
+    //         builder: (_) {
+    //           return AlertDialog(
+    //             title: Text(notification.title!),
+    //             content: SingleChildScrollView(
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [Text(notification.body!)],
+    //               ),
+    //             ),
+    //           );
+    //         });
+    //   }
+    // });
   }
 
   Widget build(BuildContext context) {
@@ -156,11 +145,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-
-
-
 
 // class MyApp extends StatelessWidget {
 //   // This widget is the root of your application.
