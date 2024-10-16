@@ -1,10 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/homescreen.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:flutter_auth/components/drawer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_auth/Screens/categories/pharmacies/regions.dart';
-import 'package:flutter_auth/Screens/homescreen.dart';
-
 
 String? type;
 String? name;
@@ -37,7 +35,8 @@ class Suggest extends StatelessWidget {
               Container(
                 child: Text(
                   'برجاء إدخال بيانـات الجهــة الطبيــة التعاقديـــة التى تعاملت معها مؤخرا ولم تجدها فى التطبيق وترغب فى إضافتها.',
-                  style: kCardSubtitleTextStyle,textAlign: TextAlign.start,
+                  style: kCardSubtitleTextStyle,
+                  textAlign: TextAlign.start,
                 ),
               ),
               SizedBox(
@@ -147,7 +146,8 @@ class Suggest extends StatelessWidget {
                 width: double.infinity,
                 height: 50.0,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.purple),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.purple),
                     child: Text('اضغـط للإضافـة',
                         style: TextStyle(
                             fontSize: 21.0, fontWeight: FontWeight.bold)),

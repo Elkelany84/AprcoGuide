@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:flutter_auth/components/drawer.dart';
 
@@ -18,7 +18,7 @@ class _AdminScreenState extends State<AdminScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formkeyTamenat = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
-   final TextEditingController _passwordTamenat = TextEditingController();
+  final TextEditingController _passwordTamenat = TextEditingController();
   String? userToken = '';
   getToken() async {
     final fbm = FirebaseMessaging.instance;
@@ -36,7 +36,7 @@ class _AdminScreenState extends State<AdminScreen> {
     //  fbm.getToken();
     fbm.subscribeToTopic('aaamoney');
     //  fbm.subscribeToTopic('bbbmoney');
-      fbm.subscribeToTopic('cccmoney');
+    fbm.subscribeToTopic('cccmoney');
   }
 
   @override
@@ -66,7 +66,8 @@ class _AdminScreenState extends State<AdminScreen> {
         //   ),
       ),
       backgroundColor: Colors.white,
-      body: Column(mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Form(
             key: _formkey,
@@ -111,7 +112,8 @@ class _AdminScreenState extends State<AdminScreen> {
                     width: 230,
                     height: 90,
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.purple),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.purple),
                         child: const Text(
                           'تصرفوهم فى الخير',
                           style: kReusableTextStyle,
@@ -143,8 +145,10 @@ class _AdminScreenState extends State<AdminScreen> {
                 ],
               ),
             ),
-          ),  
-          SizedBox(height: 10,),  
+          ),
+          SizedBox(
+            height: 10,
+          ),
           //خاص بالمعاش التكميلى
           Form(
             key: _formkeyTamenat,
@@ -189,7 +193,8 @@ class _AdminScreenState extends State<AdminScreen> {
                     width: 230,
                     height: 90,
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.purple),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.purple),
                         child: const Text(
                           'تم صرف المعاش',
                           style: kReusableTextStyle,

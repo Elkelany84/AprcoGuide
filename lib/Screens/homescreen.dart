@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/shiftscalendar/myWardia.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:flutter_auth/components/drawer.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_auth/components/drawer.dart';
 // import 'package:flutter_auth/Screens/Signup/components/body.dart';
 // import 'package:flutter_auth/Screens/Login/components/body.dart';
 import 'package:flutter_auth/components/reusablecard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 // import 'package:in_app_update/in_app_update.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,6 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  DateTime nightselectedDate = DateTime.now();
+  DateTime dayselectedDate = DateTime.now();
+  DateTime restselectedDate = DateTime.now();
+  int? daytimestamp;
+  int? nighttimestamp;
+  int? resttimestamp;
   @override
   void initState() {
     // _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
@@ -56,6 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
     // }
 
     super.initState();
+    getStoredIntValue();
+    getDayDateTime();
+    getNightDateTime();
+    getRestDateTime();
     final fbm = FirebaseMessaging.instance;
     // fbm.getToken();
     fbm.subscribeToTopic('aaamoney');
@@ -64,6 +77,56 @@ class _HomeScreenState extends State<HomeScreen> {
     // notifyHelper = Notifyhelper();
     // notifyHelper.initializeNotification();
     // notifyHelper.requestIOSPermissions;
+  }
+
+  Future<void> getStoredIntValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    daytimestamp = prefs.getInt("myDayTimestampKey") ?? 100;
+    nighttimestamp = prefs.getInt("myNightTimestampKey") ?? 100;
+    resttimestamp = prefs.getInt("myRestTimestampKey") ?? 100;
+
+    print(daytimestamp);
+    print(nighttimestamp);
+    print(resttimestamp);
+  }
+
+  DateTime getDayDateTime() {
+    if (daytimestamp == null) {
+      DateTime dateTime = DateTime.now();
+      return dateTime;
+    } else {
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(daytimestamp!);
+      dayselectedDate = dateTime;
+      print(dateTime);
+
+      return dateTime;
+    }
+  }
+
+  DateTime getRestDateTime() {
+    if (resttimestamp == null) {
+      DateTime dateTime = DateTime.now();
+      return dateTime;
+    } else {
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(resttimestamp!);
+      restselectedDate = dateTime;
+      print(dateTime);
+
+      return dateTime;
+    }
+  }
+
+  DateTime getNightDateTime() {
+    if (nighttimestamp == null) {
+      DateTime dateTime = DateTime.now();
+      return dateTime;
+    } else {
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(nighttimestamp!);
+      nightselectedDate = dateTime;
+      print(dateTime);
+
+      return dateTime;
+    }
   }
 
   @override
@@ -90,6 +153,47 @@ class _HomeScreenState extends State<HomeScreen> {
       //   child: drawer(context),
       // ),
       appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (mounted) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyWardia(
+                            dayselectedDate: dayselectedDate,
+                            nightselectedDate: nightselectedDate,
+                            restselectedDate: restselectedDate,
+                            myDayTimestampKey: daytimestamp,
+                            nighttimestamp: nighttimestamp,
+                            resttimestamp: resttimestamp,
+                          )),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.calendar_month,
+                  color: Colors.deepPurple[600],
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Shimmer.fromColors(
+                  period: const Duration(seconds: 2),
+                  direction: ShimmerDirection.rtl,
+                  baseColor: Colors.white,
+                  highlightColor: Colors.deepPurple[300]!,
+                  child: Text(
+                    'جدول الوردية',
+                    style: kReusableTextStyle.copyWith(fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
         // actions: [
         //   IconButton(
         //     onPressed: () {
@@ -114,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: Text(
           'الدليـــل الطبـــى',
-          style: kReusableTextStyle,
+          style: kReusableTextStyle.copyWith(fontSize: 20),
         ),
       ),
       // drawer: drawer(context),

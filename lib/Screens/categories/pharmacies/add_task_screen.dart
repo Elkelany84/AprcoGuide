@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/components/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
@@ -45,7 +45,7 @@ class AddTaskScreen extends StatelessWidget {
               width: double.infinity,
               height: 50.0,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.purple),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
                 child: Text(
                   'أضـــف',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),

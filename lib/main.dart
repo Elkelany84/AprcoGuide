@@ -1,6 +1,4 @@
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/categories/clinics/clinic.dart';
@@ -11,6 +9,9 @@ import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
 import 'package:flutter_auth/Screens/categories/labs/lab.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
 import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
+import 'package:flutter_auth/Screens/main_screen.dart';
+import 'package:flutter_auth/Screens/tabs_admin/tabs_screen.dart';
+import 'package:flutter_auth/webview_container.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 // import 'package:flutter_auth/get_services/theme.dart';
@@ -37,16 +38,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await GetStorage.init();
   // MobileAds.instance.initialize();
-  Platform.isAndroid
-      ? await Firebase.initializeApp(
-          options: const FirebaseOptions(
-            apiKey: "AIzaSyD0DCQl1xN29JtEHv9b63FpBqTsILY1-9I",
-            appId: "1:1074069609617:android:bbd136eec0f29475e57330",
-            messagingSenderId: "1074069609617",
-            projectId: "aprco-ae682",
-          ),
-        )
-      : await Firebase.initializeApp();
+  // Platform.isAndroid
+  //     ? await Firebase.initializeApp(
+  //         options: const FirebaseOptions(
+  //           apiKey: "AIzaSyD0DCQl1xN29JtEHv9b63FpBqTsILY1-9I",
+  //           appId: "1:1074069609617:android:bbd136eec0f29475e57330",
+  //           messagingSenderId: "1074069609617",
+  //           projectId: "aprco-ae682",
+  //         ),
+  //       )
+  //     :
+  await Firebase.initializeApp();
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
   //   alert: true,
@@ -140,10 +142,14 @@ class _MyAppState extends State<MyApp> {
         const Locale('en'),
       ],
       locale: Locale("ar", "AE"),
-      home: widget.home,
-      // initialRoute: '/',
+      // home: widget.home,
+      initialRoute: 'homeScreen',
       routes: {
         // '/':(context)=>TabsScreen(),
+        'homeScreen': (BuildContext context) => HomeScreen(),
+        'mainScreen': (BuildContext context) => MainScreen(),
+        'TabsScreen': (BuildContext context) => TabsScreen(),
+        'WebViewContainer': (BuildContext context) => WebViewContainer(),
         'clinics': (BuildContext context) => Clinics(),
         'dentals': (BuildContext context) => Dentals(),
         'devices': (BuildContext context) => Devices(),
