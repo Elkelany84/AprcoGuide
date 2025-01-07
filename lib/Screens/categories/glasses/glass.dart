@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/categories/glasses/glassreviews.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/regions.dart';
 import 'package:flutter_auth/components/constants.dart';
@@ -102,91 +101,189 @@ class _GlassesState extends State<Glasses> {
       children: [
         Flexible(flex: 1, child: androidDropdown()),
         Flexible(
-          flex: 5,
+          flex: 7,
           child: ListView.builder(
               itemCount: data.docs.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.white,
-                  child: ExpansionTile(
-                      trailing: data.docs[index]['tel1'] != null
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.call,
-                                color: Colors.purple[900],
-                              ),
-                              onPressed: () async {
-                                var _phone = data.docs[index]['tel1'];
-                                final Uri url =
-                                    Uri(scheme: "tel", path: _phone);
-                                await launchUrl(url);
-                              },
-                            )
-                          : null,
-                      title: Text(data.docs[index]['finalName'],
-                          style: kCardTextStyle, textAlign: TextAlign.start),
+                return
+                    //   Card(
+                    //   color: Colors.white,
+                    //   child: ExpansionTile(
+                    //       trailing: data.docs[index]['tel1'] != null
+                    //           ? IconButton(
+                    //               icon: Icon(
+                    //                 Icons.call,
+                    //                 color: Colors.purple[900],
+                    //               ),
+                    //               onPressed: () async {
+                    //                 var _phone = data.docs[index]['tel1'];
+                    //                 final Uri url =
+                    //                     Uri(scheme: "tel", path: _phone);
+                    //                 await launchUrl(url);
+                    //               },
+                    //             )
+                    //           : null,
+                    //       title: Text(data.docs[index]['finalName'],
+                    //           style: kCardTextStyle, textAlign: TextAlign.start),
+                    //       subtitle: Text(
+                    //         data.docs[index]['address'],
+                    //         style: kCardSubtitleTextStyle,
+                    //         textAlign: TextAlign.start,
+                    //       ),
+                    //       initiallyExpanded: false,
+                    //       children: [
+                    //         ListTile(
+                    //           title: Row(
+                    //             children: [
+                    //               TextButton(
+                    //                 child: Text('أكتب أو شاهد التقييمات',
+                    //                     style: kCardSubtitleTextStyle,
+                    //                     textAlign: TextAlign.start),
+                    //                 onPressed: () {
+                    //                   Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                       builder: (context) => NewToDo(
+                    //                         glassName: data.docs[index]
+                    //                             ['finalName'],
+                    //                       ),
+                    //                     ),
+                    //                   );
+                    //                 },
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           leading: IconButton(
+                    //             icon: Icon(
+                    //               Icons.rate_review,
+                    //               color: Colors.orange[900],
+                    //             ),
+                    //             onPressed: () {
+                    //               Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                   builder: (context) => NewToDo(
+                    //                     glassName: data.docs[index]['finalName'],
+                    //                   ),
+                    //                 ),
+                    //               );
+                    //             },
+                    //           ),
+                    //           trailing: IconButton(
+                    //             onPressed: () {
+                    //               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
+                    //               Share.share(
+                    //                 (data.docs[index]['finalName'] +
+                    //                     ' والعنوان هو ' +
+                    //                     data.docs[index]['address'] +
+                    //                     ' ورقم التليفون ' +
+                    //                     data.docs[index]['tel1']),
+                    //               );
+                    //             },
+                    //             icon: FaIcon(
+                    //               FontAwesomeIcons.shareAlt,
+                    //               color: Colors.orange[900],
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ]),
+                    // );
+                    Column(
+                  children: [
+                    ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(data.docs[index]['finalName'],
+                              style: kCardTextStyle.copyWith(fontSize: 16)),
+                          // IconButton(
+                          //   icon: Icon(
+                          //     Icons.call,
+                          //     color: Colors.purple[900],
+                          //   ),
+                          //   onPressed: () async {
+                          //     var _phone = data.docs[index]['tel1'];
+                          //     final Uri url = Uri(scheme: "tel", path: _phone);
+                          //     await launchUrl(url);
+                          //   },
+                          // ),
+                          // IconButton(
+                          //   icon: Icon(
+                          //     Icons.my_location,
+                          //     color: Colors.purple[900],
+                          //   ),
+                          //   onPressed: () {
+                          //     _openInGoogleMaps(data.docs[index]['finalName'] +
+                          //         data.docs[index]['address']);
+                          //   },
+                          // ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
+                          //     Share.share(
+                          //       (data.docs[index]['finalName'] +
+                          //           ' والعنوان هو ' +
+                          //           data.docs[index]['address'] +
+                          //           ' ورقم التليفون ' +
+                          //           data.docs[index]['tel1']),
+                          //     );
+                          //   },
+                          //   icon: FaIcon(
+                          //     FontAwesomeIcons.shareNodes,
+                          //     color: Colors.orange[900],
+                          //   ),
+                          // ),
+                        ],
+                      ),
                       subtitle: Text(
                         data.docs[index]['address'],
                         style: kCardSubtitleTextStyle,
-                        textAlign: TextAlign.start,
                       ),
-                      initiallyExpanded: false,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ListTile(
-                          title: Row(
-                            children: [
-                              TextButton(
-                                child: Text('أكتب أو شاهد التقييمات',
-                                    style: kCardSubtitleTextStyle,
-                                    textAlign: TextAlign.start),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NewToDo(
-                                        glassName: data.docs[index]
-                                            ['finalName'],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
+                        IconButton(
+                          icon: Icon(
+                            Icons.call,
+                            color: Colors.purple[900],
                           ),
-                          leading: IconButton(
-                            icon: Icon(
-                              Icons.rate_review,
-                              color: Colors.orange[900],
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NewToDo(
-                                    glassName: data.docs[index]['finalName'],
-                                  ),
-                                ),
-                              );
-                            },
+                          onPressed: () async {
+                            var _phone = data.docs[index]['tel1'];
+                            final Uri url = Uri(scheme: "tel", path: _phone);
+                            await launchUrl(url);
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.my_location,
+                            color: Colors.purple[900],
                           ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
-                              Share.share(
-                                (data.docs[index]['finalName'] +
-                                    ' والعنوان هو ' +
-                                    data.docs[index]['address'] +
-                                    ' ورقم التليفون ' +
-                                    data.docs[index]['tel1']),
-                              );
-                            },
-                            icon: FaIcon(
-                              FontAwesomeIcons.shareAlt,
-                              color: Colors.orange[900],
-                            ),
+                          onPressed: () {
+                            _openInGoogleMaps(data.docs[index]['finalName'] +
+                                data.docs[index]['address']);
+                          },
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
+                            Share.share(
+                              (data.docs[index]['finalName'] +
+                                  ' والعنوان هو ' +
+                                  data.docs[index]['address'] +
+                                  ' ورقم التليفون ' +
+                                  data.docs[index]['tel1']),
+                            );
+                          },
+                          icon: FaIcon(
+                            FontAwesomeIcons.shareNodes,
+                            color: Colors.orange[900],
                           ),
                         ),
-                      ]),
+                      ],
+                    ),
+                    Divider(height: 1.0),
+                  ],
                 );
               }),
         ),
@@ -231,6 +328,11 @@ class _GlassesState extends State<Glasses> {
     );
   }
 
+  void _openInGoogleMaps(String address) async {
+    final url =
+        Uri.parse('https://www.google.com/maps/search/?api=1&query=$address');
+    await launchUrl(url);
+  }
   // DropdownButton<String> pharRegion() {
   //   List<DropdownMenuItem<String>> dropDownItems = [];
   //   for (String region in pharmRegion) {

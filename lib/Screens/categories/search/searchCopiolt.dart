@@ -49,7 +49,8 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                 controller: _typeAheadController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: " بحث عن جهة طبية...",
+                    labelText:
+                        " بحث عن مستشفى ، صيدلية ، معامل تحاليل ، مركز أشعة...",
                     prefixIcon: Icon(Icons.search)),
               ),
               suggestionsCallback: (pattern) async {
@@ -92,7 +93,7 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                               children: [
                                 Text(data['finalName'],
                                     style:
-                                        kCardTextStyle.copyWith(fontSize: 16)),
+                                        kCardTextStyle.copyWith(fontSize: 14)),
                                 IconButton(
                                   icon: Icon(
                                     Icons.call,
@@ -106,9 +107,13 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                                   },
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.map),
+                                  icon: Icon(
+                                    Icons.my_location,
+                                    color: Colors.purple[900],
+                                  ),
                                   onPressed: () {
-                                    _openInGoogleMaps(data['address']);
+                                    _openInGoogleMaps(
+                                        data['finalName'] + data['address']);
                                   },
                                 )
                               ],
