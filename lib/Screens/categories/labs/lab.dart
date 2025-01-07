@@ -46,7 +46,7 @@ class _LabsState extends State<Labs> {
 
   Widget _content(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(4.0),
       child: Column(
         children: [
           Flexible(
@@ -72,11 +72,12 @@ class _LabsState extends State<Labs> {
                 return _drawScreen(context, snapshot.data);
               },
               stream: FirebaseFirestore.instance
-                  .collection('labs')
+                  .collection('allMedical')
                   .where(
                     'region',
                     isEqualTo: selectedRegion,
                   )
+                  .where('type', isEqualTo: 'معامل تحاليل')
                   .snapshots(),
             ),
           ),
@@ -122,7 +123,7 @@ class _LabsState extends State<Labs> {
                               },
                             )
                           : null,
-                      title: Text(data.docs[index]['name'],
+                      title: Text(data.docs[index]['finalName'],
                           style: kCardTextStyle, textAlign: TextAlign.start),
                       subtitle: Text(
                         data.docs[index]['address'],
@@ -143,7 +144,7 @@ class _LabsState extends State<Labs> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewToDo(
-                                        labName: data.docs[index]['name'],
+                                        labName: data.docs[index]['finalName'],
                                       ),
                                     ),
                                   );
@@ -161,7 +162,7 @@ class _LabsState extends State<Labs> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NewToDo(
-                                    labName: data.docs[index]['name'],
+                                    labName: data.docs[index]['finalName'],
                                   ),
                                 ),
                               );
@@ -171,7 +172,7 @@ class _LabsState extends State<Labs> {
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
-                                (data.docs[index]['name'] +
+                                (data.docs[index]['finalName'] +
                                     ' والعنوان هو ' +
                                     data.docs[index]['address'] +
                                     ' ورقم التليفون ' +
@@ -179,7 +180,7 @@ class _LabsState extends State<Labs> {
                               );
                             },
                             icon: FaIcon(
-                              FontAwesomeIcons.shareAlt,
+                              FontAwesomeIcons.shareNodes,
                               color: Colors.orange[900],
                             ),
                           ),

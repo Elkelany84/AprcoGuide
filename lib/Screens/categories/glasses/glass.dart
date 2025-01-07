@@ -46,7 +46,7 @@ class _GlassesState extends State<Glasses> {
 
   Widget _content(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(4.0),
       child: Column(
         children: [
           Flexible(
@@ -72,11 +72,12 @@ class _GlassesState extends State<Glasses> {
                 return _drawScreen(context, snapshot.data);
               },
               stream: FirebaseFirestore.instance
-                  .collection('glasses')
+                  .collection('allMedical')
                   .where(
                     'region',
                     isEqualTo: selectedRegion,
                   )
+                  .where('type', isEqualTo: 'نظارات')
                   .snapshots(),
             ),
           ),
@@ -122,7 +123,7 @@ class _GlassesState extends State<Glasses> {
                               },
                             )
                           : null,
-                      title: Text(data.docs[index]['name'],
+                      title: Text(data.docs[index]['finalName'],
                           style: kCardTextStyle, textAlign: TextAlign.start),
                       subtitle: Text(
                         data.docs[index]['address'],
@@ -143,7 +144,8 @@ class _GlassesState extends State<Glasses> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewToDo(
-                                        glassName: data.docs[index]['name'],
+                                        glassName: data.docs[index]
+                                            ['finalName'],
                                       ),
                                     ),
                                   );
@@ -161,7 +163,7 @@ class _GlassesState extends State<Glasses> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NewToDo(
-                                    glassName: data.docs[index]['name'],
+                                    glassName: data.docs[index]['finalName'],
                                   ),
                                 ),
                               );
@@ -171,7 +173,7 @@ class _GlassesState extends State<Glasses> {
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
-                                (data.docs[index]['name'] +
+                                (data.docs[index]['finalName'] +
                                     ' والعنوان هو ' +
                                     data.docs[index]['address'] +
                                     ' ورقم التليفون ' +

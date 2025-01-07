@@ -12,6 +12,8 @@ import 'package:flutter_auth/Screens/homescreen.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../Screens/categories/search/searchCopiolt.dart';
+
 // class DrawerWidget extends StatefulWidget {
 //   const DrawerWidget({super.key});
 //
@@ -557,6 +559,23 @@ Widget drawer(BuildContext context) {
         //         .push((MaterialPageRoute(builder: (context) => MyWardia())));
         //   },
         // ),
+        ListTile(
+          leading: FaIcon(
+            FontAwesomeIcons.searchengin,
+            color: Colors.purple,
+          ),
+          title: Text(
+            'جميع الجهات الطبية',
+            style: kDrawerTextStyle,
+          ),
+          onTap: () {
+            Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MedicalSearchWidget()))
+                .then((value) => Navigator.pop(context));
+          },
+        ),
         ListTile(
           leading: FaIcon(
             FontAwesomeIcons.pills,

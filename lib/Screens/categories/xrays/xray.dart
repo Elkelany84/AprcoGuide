@@ -46,7 +46,7 @@ class _XraysState extends State<Xrays> {
 
   Widget _content(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(4.0),
       child: Column(
         children: [
           Flexible(
@@ -72,11 +72,12 @@ class _XraysState extends State<Xrays> {
                 return _drawScreen(context, snapshot.data);
               },
               stream: FirebaseFirestore.instance
-                  .collection('xrays')
+                  .collection('allMedical')
                   .where(
                     'region',
                     isEqualTo: selectedRegion,
                   )
+                  .where('type', isEqualTo: 'مركز أشعة')
                   .snapshots(),
             ),
           ),
@@ -101,7 +102,7 @@ class _XraysState extends State<Xrays> {
       children: [
         Flexible(flex: 1, child: androidDropdown()),
         Flexible(
-          flex: 5,
+          flex: 6,
           child: ListView.builder(
               itemCount: data.docs.length,
               itemBuilder: (BuildContext context, int index) {
@@ -122,7 +123,7 @@ class _XraysState extends State<Xrays> {
                               },
                             )
                           : null,
-                      title: Text(data.docs[index]['name'],
+                      title: Text(data.docs[index]['finalName'],
                           style: kCardTextStyle, textAlign: TextAlign.start),
                       subtitle: Text(
                         data.docs[index]['address'],
@@ -143,7 +144,7 @@ class _XraysState extends State<Xrays> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewToDo(
-                                        xrayName: data.docs[index]['name'],
+                                        xrayName: data.docs[index]['finalName'],
                                       ),
                                     ),
                                   );
@@ -161,7 +162,7 @@ class _XraysState extends State<Xrays> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NewToDo(
-                                    xrayName: data.docs[index]['name'],
+                                    xrayName: data.docs[index]['finalName'],
                                   ),
                                 ),
                               );
@@ -171,7 +172,7 @@ class _XraysState extends State<Xrays> {
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
-                                (data.docs[index]['name'] +
+                                (data.docs[index]['finalName'] +
                                     ' والعنوان هو ' +
                                     data.docs[index]['address'] +
                                     ' ورقم التليفون ' +
@@ -179,7 +180,7 @@ class _XraysState extends State<Xrays> {
                               );
                             },
                             icon: FaIcon(
-                              FontAwesomeIcons.shareAlt,
+                              FontAwesomeIcons.shareNodes,
                               color: Colors.orange[900],
                             ),
                           ),

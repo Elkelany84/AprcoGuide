@@ -46,7 +46,7 @@ class _ClinicsState extends State<Clinics> {
 
   Widget _content(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(4.0),
       child: Column(
         children: [
           Flexible(
@@ -72,9 +72,9 @@ class _ClinicsState extends State<Clinics> {
                 return _drawScreen(context, snapshot.data);
               },
               stream: FirebaseFirestore.instance
-                  .collection('clinics')
+                  .collection('allMedical')
                   .where(
-                    'special',
+                    'type',
                     isEqualTo: selectedSpecial,
                   )
                   .snapshots(),
@@ -154,7 +154,8 @@ class _ClinicsState extends State<Clinics> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewToDo(
-                                        clinicName: data.docs[index]['name'],
+                                        clinicName: data.docs[index]
+                                            ['finalName'],
                                       ),
                                     ),
                                   );
@@ -172,7 +173,7 @@ class _ClinicsState extends State<Clinics> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NewToDo(
-                                    clinicName: data.docs[index]['name'],
+                                    clinicName: data.docs[index]['finalName'],
                                   ),
                                 ),
                               );
@@ -182,7 +183,7 @@ class _ClinicsState extends State<Clinics> {
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
-                                (data.docs[index]['name'] +
+                                (data.docs[index]['finalName'] +
                                     ' والعنوان هو ' +
                                     data.docs[index]['address'] +
                                     ' ورقم التليفون ' +
@@ -190,7 +191,7 @@ class _ClinicsState extends State<Clinics> {
                               );
                             },
                             icon: FaIcon(
-                              FontAwesomeIcons.shareAlt,
+                              FontAwesomeIcons.shareNodes,
                               color: Colors.orange[900],
                             ),
                           ),

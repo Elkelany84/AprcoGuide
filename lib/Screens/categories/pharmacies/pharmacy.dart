@@ -46,7 +46,7 @@ class _PharmaciesState extends State<Pharmacies> {
 
   Widget _content(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(22.0),
+      padding: EdgeInsets.all(4.0),
       child: Column(
         children: [
           Flexible(
@@ -72,11 +72,12 @@ class _PharmaciesState extends State<Pharmacies> {
                 return _drawScreen(context, snapshot.data);
               },
               stream: FirebaseFirestore.instance
-                  .collection('pharmacies')
+                  .collection('allMedical')
                   .where(
                     'region',
                     isEqualTo: selectedRegion,
                   )
+                  .where('type', isEqualTo: 'صيدلية')
                   .snapshots(),
             ),
           ),
@@ -122,7 +123,7 @@ class _PharmaciesState extends State<Pharmacies> {
                               },
                             )
                           : null,
-                      title: Text(data.docs[index]['name'],
+                      title: Text(data.docs[index]['finalName'],
                           style: kCardTextStyle, textAlign: TextAlign.start),
                       subtitle: Text(
                         data.docs[index]['address'],
@@ -143,7 +144,7 @@ class _PharmaciesState extends State<Pharmacies> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewToDo(
-                                        pharName: data.docs[index]['name'],
+                                        pharName: data.docs[index]['finalName'],
                                       ),
                                     ),
                                   );
@@ -161,7 +162,7 @@ class _PharmaciesState extends State<Pharmacies> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => NewToDo(
-                                    pharName: data.docs[index]['name'],
+                                    pharName: data.docs[index]['finalName'],
                                   ),
                                 ),
                               );
@@ -171,7 +172,7 @@ class _PharmaciesState extends State<Pharmacies> {
                             onPressed: () {
                               // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
                               Share.share(
-                                (data.docs[index]['name'] +
+                                (data.docs[index]['finalName'] +
                                     ' والعنوان هو ' +
                                     data.docs[index]['address'] +
                                     ' ورقم التليفون ' +
@@ -179,7 +180,7 @@ class _PharmaciesState extends State<Pharmacies> {
                               );
                             },
                             icon: FaIcon(
-                              FontAwesomeIcons.shareAlt,
+                              FontAwesomeIcons.shareNodes,
                               color: Colors.orange[900],
                             ),
                           ),

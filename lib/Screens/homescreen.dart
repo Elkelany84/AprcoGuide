@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.purple,
         centerTitle: true,
         title: Text(
-          'الدليـــل الطبـــى',
+          'الدليـــل الطبـــى 2025',
           style: kReusableTextStyle.copyWith(fontSize: 20),
         ),
       ),
