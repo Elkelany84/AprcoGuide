@@ -4,10 +4,18 @@ const kReusableTextStyle =
     TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26.0);
 
 const kCardTextStyle = TextStyle(
-    color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 18.0);
+  color: Colors.purple,
+  fontWeight: FontWeight.bold,
+  fontSize: 18.0,
+  fontFamily: "ElMessiri",
+);
 
 const kCardSubtitleTextStyle = TextStyle(
-    color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 16.0);
+  color: Colors.purple,
+  fontWeight: FontWeight.bold,
+  fontSize: 14.0,
+  fontFamily: "ElMessiri",
+);
 
 const kAddTaskTextStyle = TextStyle(
     color: Colors.white,

@@ -161,7 +161,7 @@ class _SettingsState extends State<Settings> {
                           context: context,
                           initialDate: selectedDate,
                           firstDate: DateTime(2024),
-                          lastDate: DateTime(2025));
+                          lastDate: DateTime(2030));
                       if (newDate == null) return;
                       int timestamp = newDate.millisecondsSinceEpoch;
 
