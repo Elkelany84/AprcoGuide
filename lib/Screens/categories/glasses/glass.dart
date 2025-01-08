@@ -261,6 +261,7 @@ class _GlassesState extends State<Glasses> {
                           ),
                           onPressed: () {
                             _openInGoogleMaps(data.docs[index]['finalName'] +
+                                " " +
                                 data.docs[index]['address']);
                           },
                         ),

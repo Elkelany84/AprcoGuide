@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/components/constants.dart';
@@ -41,7 +42,7 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _medicalStream = FirebaseFirestore.instance
         .collection('allMedical')
-        .orderBy('name')
+        // .orderBy('name')
         .orderBy('region')
         .where('type',
             isEqualTo: _selectedFilter.isNotEmpty ? _selectedFilter : null)
@@ -158,9 +159,23 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(data['finalName'],
-                                    style:
-                                        kCardTextStyle.copyWith(fontSize: 16)),
+                                Expanded(
+                                  child: AutoSizeText(
+                                    data['finalName'],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.purple,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "ElMessiri",
+                                    ),
+                                    minFontSize: 14,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    // child: Text(data['finalName'],
+                                    //     style: kCardTextStyle.copyWith(
+                                    //         fontSize: 16)),
+                                  ),
+                                ),
                                 // IconButton(
                                 //   icon: Icon(
                                 //     Icons.call,
@@ -211,8 +226,9 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                                   color: Colors.purple[900],
                                 ),
                                 onPressed: () {
-                                  _openInGoogleMaps(
-                                      data['finalName'] + data['address']);
+                                  _openInGoogleMaps(data['finalName'] +
+                                      " " +
+                                      data['address']);
                                 },
                               ),
                               IconButton(
@@ -275,7 +291,7 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
       child: Container(
         width: 80.0,
         margin: EdgeInsets.symmetric(horizontal: 4.0),
-        padding: EdgeInsets.all(2.0),
+        // padding: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
           color: _selectedFilter == filter ? Colors.purple[900] : Colors.grey,
           borderRadius: BorderRadius.circular(8.0),

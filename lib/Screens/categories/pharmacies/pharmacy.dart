@@ -260,6 +260,7 @@ class _PharmaciesState extends State<Pharmacies> {
                           ),
                           onPressed: () {
                             _openInGoogleMaps(data.docs[index]['finalName'] +
+                                " " +
                                 data.docs[index]['address']);
                           },
                         ),

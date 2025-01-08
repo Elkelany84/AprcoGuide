@@ -261,6 +261,7 @@ class _DentalsState extends State<Dentals> {
                           ),
                           onPressed: () {
                             _openInGoogleMaps(data.docs[index]['finalName'] +
+                                " " +
                                 data.docs[index]['address']);
                           },
                         ),

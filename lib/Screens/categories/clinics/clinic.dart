@@ -204,8 +204,10 @@ class _ClinicsState extends State<Clinics> {
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(data.docs[index]['finalName'],
-                              style: kCardTextStyle.copyWith(fontSize: 16)),
+                          Expanded(
+                            child: Text(data.docs[index]['finalName'],
+                                style: kCardTextStyle.copyWith(fontSize: 16)),
+                          ),
                           // IconButton(
                           //   icon: Icon(
                           //     Icons.call,
@@ -271,6 +273,7 @@ class _ClinicsState extends State<Clinics> {
                           ),
                           onPressed: () {
                             _openInGoogleMaps(data.docs[index]['finalName'] +
+                                " " +
                                 data.docs[index]['address']);
                           },
                         ),

@@ -262,6 +262,7 @@ class _DevicesState extends State<Devices> {
                           ),
                           onPressed: () {
                             _openInGoogleMaps(data.docs[index]['finalName'] +
+                                " " +
                                 data.docs[index]['address']);
                           },
                         ),
