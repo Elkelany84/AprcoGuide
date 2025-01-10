@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_auth/Screens/categories/pharmacies/regions.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:flutter_auth/components/drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +12,37 @@ class Hospitals extends StatefulWidget {
 }
 
 class _HospitalsState extends State<Hospitals> {
+  bool _showWidget = false;
+  List<String> hospitalsRegion = ['اختر المنطقة'];
+
+  //get all the unique reqion from allMedical collection based on its type
+  Future<List<String>> _fetchMedicalNames() async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await _firestore
+        .collection('allMedical')
+        .where('type', isEqualTo: 'مستشفى')
+        .get();
+    List<String> names = querySnapshot.docs
+        .map((doc) => doc['region'] as String)
+        .toSet()
+        .toList();
+    // print(names);
+    hospitalsRegion.addAll(names);
+    // print(hospitalsRegion);
+    return names;
+  }
+
+  @override
+  void initState() {
+    _fetchMedicalNames();
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _showWidget = true;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +129,9 @@ class _HospitalsState extends State<Hospitals> {
     // var _phone = '01066932261';
     return Column(
       children: [
-        Flexible(flex: 1, child: androidDropdown()),
+        _showWidget
+            ? Flexible(flex: 1, child: androidDropdown())
+            : CircularProgressIndicator(),
         Flexible(
           flex: 6,
           child: ListView.builder(
@@ -322,7 +353,8 @@ class _HospitalsState extends State<Hospitals> {
 
   DropdownButton<String> androidDropdown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
-    for (String currency in pharmRegion) {
+    hospitalsRegion.sort((a, b) => a.compareTo(b));
+    for (String currency in hospitalsRegion) {
       var newItem = DropdownMenuItem(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-const kReusableTextStyle =
-    TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26.0);
+const kReusableTextStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+  fontSize: 22.0,
+  fontFamily: "ElMessiri",
+);
 
 const kCardTextStyle = TextStyle(
   color: Colors.purple,

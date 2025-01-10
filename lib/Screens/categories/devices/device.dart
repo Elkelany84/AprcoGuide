@@ -195,8 +195,10 @@ class _DevicesState extends State<Devices> {
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(data.docs[index]['finalName'],
-                              style: kCardTextStyle.copyWith(fontSize: 16)),
+                          Expanded(
+                            child: Text(data.docs[index]['finalName'],
+                                style: kCardTextStyle.copyWith(fontSize: 16)),
+                          ),
                           // IconButton(
                           //   icon: Icon(
                           //     Icons.call,
