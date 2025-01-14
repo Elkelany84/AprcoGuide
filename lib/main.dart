@@ -9,10 +9,11 @@ import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
 import 'package:flutter_auth/Screens/categories/labs/lab.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
 import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
-import 'package:flutter_auth/Screens/main_screen.dart';
 import 'package:flutter_auth/Screens/tabs_admin/tabs_screen.dart';
+import 'package:flutter_auth/providers/vacations_provider.dart';
 import 'package:flutter_auth/webview_container.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 // import 'package:flutter_auth/get_services/theme.dart';
 // import 'package:flutter_auth/get_services/theme_services.dart';
@@ -62,7 +63,17 @@ void main() async {
   //   homeScreen = LoginScreen();
   // }
 
-  runApp(MyApp(homeScreen));
+  // runApp(MyApp(homeScreen));
+  runApp(
+    /// Providers are above [MyApp] instead of inside it, so that tests
+    /// can use [MyApp] while mocking the providers
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DataModel()),
+      ],
+      child: MyApp(homeScreen),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -147,7 +158,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         // '/':(context)=>TabsScreen(),
         'homeScreen': (BuildContext context) => HomeScreen(),
-        'mainScreen': (BuildContext context) => MainScreen(),
+        // 'mainScreen': (BuildContext context) => MainScreen(),
         'TabsScreen': (BuildContext context) => TabsScreen(),
         'WebViewContainer': (BuildContext context) => WebViewContainer(),
         'clinics': (BuildContext context) => Clinics(),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/components/constants.dart';
@@ -225,8 +226,21 @@ class _GlassesState extends State<Glasses> {
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(data.docs[index]['finalName'],
-                              style: kCardTextStyle.copyWith(fontSize: 16)),
+                          Expanded(
+                            child: AutoSizeText(
+                              data.docs[index]['finalName'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.purple,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "ElMessiri",
+                              ),
+                              minFontSize: 6,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+
                           // IconButton(
                           //   icon: Icon(
                           //     Icons.call,

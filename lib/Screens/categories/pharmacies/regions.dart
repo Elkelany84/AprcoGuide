@@ -198,6 +198,8 @@ List<String> pharmRegion = [
   "ميدان الساعة",
   "وينجت",
 ];
+List<String> vacationType = ['نوع الإجازة', 'سنوى', 'عارضة', 'ساعات'];
+List<dynamic> vacationCash = ['رصيد السنوى', 21, 30, 45];
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_auth/components/constants.dart';
