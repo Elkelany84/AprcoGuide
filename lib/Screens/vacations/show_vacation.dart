@@ -42,7 +42,15 @@ class ShowVacation extends StatelessWidget {
                                     topLeft: const Radius.circular(10.0),
                                     topRight: const Radius.circular(10.0))),
                             child: new Center(
-                              child: new Text("This is a modal sheet"),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  new Text(
+                                    "عدد أيام العارضة : 7 أيام",
+                                    style: kCardTextStyle,
+                                  ),
+                                ],
+                              ),
                             )),
                       );
                     });
@@ -85,6 +93,7 @@ class _DataListWidgetState extends State<DataListWidget> {
   DateTime? _selectedDate;
   String chooseDay = 'اختر اليوم';
   String _filterText = '';
+  int listTileCount = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -96,6 +105,28 @@ class _DataListWidgetState extends State<DataListWidget> {
               onTap: () {
                 setState(() {
                   _filterText = 'سنوى';
+                  listTileCount = 0;
+                });
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text('Total ListTiles: $listTileCount'),
+                //     behavior: SnackBarBehavior.floating,
+                //     margin: EdgeInsets.only(top: 30),
+                //   ),
+                // );
+                Future.delayed(Duration(seconds: 2), () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.purple,
+                      // content: Text('Total ListTiles: $listTileCount'),
+                      content: Text(
+                        'عدد أيام السنوى التى أخذتها هى $listTileCount',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(top: 30),
+                    ),
+                  );
                 });
               },
               // }, child: Container( padding: EdgeInsets.all(16), color: Colors.red, child: Text('Value3', style: TextStyle(color: Colors.white)),
@@ -124,6 +155,21 @@ class _DataListWidgetState extends State<DataListWidget> {
               onTap: () {
                 setState(() {
                   _filterText = 'عارضة';
+                  listTileCount = 0;
+                });
+                Future.delayed(Duration(seconds: 2), () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.purple,
+                      // content: Text('Total ListTiles: $listTileCount'),
+                      content: Text(
+                        'عدد أيام العارضة المتبقية ${7 - listTileCount}',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(top: 30),
+                    ),
+                  );
                 });
               },
               // }, child: Container( padding: EdgeInsets.all(16), color: Colors.red, child: Text('Value3', style: TextStyle(color: Colors.white)),
@@ -152,6 +198,7 @@ class _DataListWidgetState extends State<DataListWidget> {
               onTap: () {
                 setState(() {
                   _filterText = 'ساعات';
+                  listTileCount = 0;
                 });
               },
               // }, child: Container( padding: EdgeInsets.all(16), color: Colors.red, child: Text('Value3', style: TextStyle(color: Colors.white)),
@@ -186,6 +233,7 @@ class _DataListWidgetState extends State<DataListWidget> {
                       .toLowerCase()
                       .contains(_filterText.toLowerCase());
                 }).toList();
+
                 return ListView.builder(
                   //original line to show all
                   // itemCount: dataModel.items.length,
@@ -198,7 +246,8 @@ class _DataListWidgetState extends State<DataListWidget> {
                     //     .format(DateTime.parse(item['date'] ?? ''));
                     final formattedDate = DateFormat.yMMMd('ar')
                         .format(DateTime.parse(item['date'] ?? ''));
-
+                    listTileCount++;
+                    print(listTileCount);
                     return Card(
                       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                       elevation: 4,
@@ -289,7 +338,7 @@ class _DataListWidgetState extends State<DataListWidget> {
           ElevatedButton(
               onPressed: () {
                 // String text = _controller.text;
-                if (_selectedDate != null) {
+                if (_selectedDate != null && selectedSpecial != 'نوع الإجازة') {
                   Provider.of<DataModel>(context, listen: false)
                       .addItem(_selectedDate!, selectedSpecial!);
                   // _controller.clear();
