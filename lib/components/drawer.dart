@@ -9,6 +9,7 @@ import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
 import 'package:flutter_auth/Screens/categories/suggests/suggest.dart';
 import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
 import 'package:flutter_auth/Screens/homescreen.dart';
+import 'package:flutter_auth/Screens/vacations/show_vacation.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -436,7 +437,7 @@ Widget drawer(BuildContext context) {
               //   ),
               SizedBox(height: 80.0),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.home),
+                leading: FaIcon(FontAwesomeIcons.house),
                 title: Text(
                   'الشاشة الرئيسية',
                   style: kDrawerTextStyle.copyWith(color: Colors.white),
@@ -638,7 +639,7 @@ Widget drawer(BuildContext context) {
         ),
         ListTile(
           leading: FaIcon(
-            FontAwesomeIcons.clinicMedical,
+            FontAwesomeIcons.houseChimneyMedical,
             color: Colors.purple,
           ),
           title: Text(
@@ -698,7 +699,7 @@ Widget drawer(BuildContext context) {
         ),
         ListTile(
           leading: FaIcon(
-            FontAwesomeIcons.edit,
+            FontAwesomeIcons.penToSquare,
             color: Colors.purple,
           ),
           title: Text(
@@ -708,6 +709,21 @@ Widget drawer(BuildContext context) {
           onTap: () {
             Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Suggest()))
+                .then((value) => Navigator.pop(context));
+          },
+        ),
+        ListTile(
+          leading: FaIcon(
+            FontAwesomeIcons.calendarDays,
+            color: Colors.purple,
+          ),
+          title: Text(
+            'بيان إجــازاتـى',
+            style: kDrawerTextStyle.copyWith(color: Colors.orange[900]),
+          ),
+          onTap: () {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShowVacation()))
                 .then((value) => Navigator.pop(context));
           },
         ),
