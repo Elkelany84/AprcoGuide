@@ -41,7 +41,7 @@ class DataModel extends ChangeNotifier {
   }
 
   void removeItem(int index) {
-    _items.removeAt(index);
+    items.removeAt(index);
     _saveData();
     _sortItems();
     notifyListeners();

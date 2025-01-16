@@ -20,7 +20,7 @@ class _ShowVacationState extends State<ShowVacation> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        centerTitle: true,
+        centerTitle: false,
         title: Text(
           'بيان رصيد الإجازات',
           style: kReusableTextStyle.copyWith(fontSize: 18),
@@ -220,59 +220,59 @@ class _DataListWidgetState extends State<DataListWidget> {
       child: Column(
         children: [
           Row(children: [
-            // GestureDetector(
-            //   onTap: () {
-            //     setState(() {
-            //       _filterText = 'الكل';
-            //       listTileCount = 0;
-            //       getStoredIntValue();
-            //     });
-            //     // ScaffoldMessenger.of(context).showSnackBar(
-            //     //   SnackBar(
-            //     //     content: Text('Total ListTiles: $listTileCount'),
-            //     //     behavior: SnackBarBehavior.floating,
-            //     //     margin: EdgeInsets.only(top: 30),
-            //     //   ),
-            //     // );
-            //     Future.delayed(Duration(seconds: 2), () {
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //         SnackBar(
-            //           backgroundColor: Colors.purple,
-            //           // content: Text('Total ListTiles: $listTileCount'),
-            //           content: Text(
-            //             'عدد أيام السنوى المتبقية هى ${intReturnedNumber - listTileCount}',
-            //             style: TextStyle(
-            //                 color: Colors.white,
-            //                 fontSize: 16,
-            //                 fontWeight: FontWeight.bold),
-            //           ),
-            //           behavior: SnackBarBehavior.floating,
-            //           margin: EdgeInsets.only(top: 30),
-            //         ),
-            //       );
-            //     });
-            //   },
-            //   // }, child: Container( padding: EdgeInsets.all(16), color: Colors.red, child: Text('Value3', style: TextStyle(color: Colors.white)),
-            //   child: Container(
-            //     width: 80.0, height: 50,
-            //     margin: EdgeInsets.symmetric(horizontal: 4.0),
-            //     // padding: EdgeInsets.all(2.0),
-            //     decoration: BoxDecoration(
-            //       color: _filterText == '' ? Colors.purple[900] : Colors.grey,
-            //       borderRadius: BorderRadius.circular(8.0),
-            //     ),
-            //     child: Center(
-            //       child: Text(
-            //         'الكل',
-            //         style: TextStyle(
-            //           fontSize: 18,
-            //           color: Colors.white,
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _filterText = '';
+                  listTileCount = 0;
+                  getStoredIntValue();
+                });
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text('Total ListTiles: $listTileCount'),
+                //     behavior: SnackBarBehavior.floating,
+                //     margin: EdgeInsets.only(top: 30),
+                //   ),
+                // );
+                Future.delayed(Duration(seconds: 2), () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.purple,
+                      // content: Text('Total ListTiles: $listTileCount'),
+                      content: Text(
+                        'عدد أيام الإجازات الكلية التى أخذتها هى ${listTileCount}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(top: 30),
+                    ),
+                  );
+                });
+              },
+              // }, child: Container( padding: EdgeInsets.all(16), color: Colors.red, child: Text('Value3', style: TextStyle(color: Colors.white)),
+              child: Container(
+                width: 80.0, height: 50,
+                margin: EdgeInsets.symmetric(horizontal: 4.0),
+                // padding: EdgeInsets.all(2.0),
+                decoration: BoxDecoration(
+                  color: _filterText == '' ? Colors.purple[900] : Colors.grey,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Center(
+                  child: Text(
+                    'الكل',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -450,17 +450,20 @@ class _DataListWidgetState extends State<DataListWidget> {
                           formattedDate,
                           style: kCardSubtitleTextStyle.copyWith(fontSize: 16),
                         ),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                            size: 26,
-                          ),
-                          onPressed: () {
-                            Provider.of<DataModel>(context, listen: false)
-                                .removeItem(index);
-                          },
-                        ),
+                        trailing: _filterText == ''
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 26,
+                                ),
+                                onPressed: () {
+                                  print(filteredItems);
+                                  Provider.of<DataModel>(context, listen: false)
+                                      .removeItem(index);
+                                },
+                              )
+                            : null,
                       ),
                     );
                   },

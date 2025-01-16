@@ -6,7 +6,6 @@ import 'package:flutter_auth/Screens/categories/glasses/glass.dart';
 import 'package:flutter_auth/Screens/categories/hospitals/hospital.dart';
 import 'package:flutter_auth/Screens/categories/labs/lab.dart';
 import 'package:flutter_auth/Screens/categories/pharmacies/pharmacy.dart';
-import 'package:flutter_auth/Screens/categories/suggests/suggest.dart';
 import 'package:flutter_auth/Screens/categories/xrays/xray.dart';
 import 'package:flutter_auth/Screens/homescreen.dart';
 import 'package:flutter_auth/Screens/vacations/show_vacation.dart';
@@ -697,21 +696,21 @@ Widget drawer(BuildContext context) {
                 .then((value) => Navigator.pop(context));
           },
         ),
-        ListTile(
-          leading: FaIcon(
-            FontAwesomeIcons.penToSquare,
-            color: Colors.purple,
-          ),
-          title: Text(
-            'أضف جهة طبية',
-            style: kDrawerTextStyle.copyWith(color: Colors.orange[900]),
-          ),
-          onTap: () {
-            Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Suggest()))
-                .then((value) => Navigator.pop(context));
-          },
-        ),
+        // ListTile(
+        //   leading: FaIcon(
+        //     FontAwesomeIcons.penToSquare,
+        //     color: Colors.purple,
+        //   ),
+        //   title: Text(
+        //     'أضف جهة طبية',
+        //     style: kDrawerTextStyle.copyWith(color: Colors.orange[900]),
+        //   ),
+        //   onTap: () {
+        //     Navigator.push(
+        //             context, MaterialPageRoute(builder: (context) => Suggest()))
+        //         .then((value) => Navigator.pop(context));
+        //   },
+        // ),
         ListTile(
           leading: FaIcon(
             FontAwesomeIcons.calendarDays,

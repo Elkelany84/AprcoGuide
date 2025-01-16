@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/vacations/show_vacation.dart';
 import 'package:flutter_auth/components/constants.dart';
 import 'package:flutter_auth/components/drawer.dart';
 import 'package:provider/provider.dart';
@@ -81,7 +80,7 @@ class _VacationdayssettingsState extends State<Vacationdayssettings> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   new Text(
-                    "عدد أيام العارضة : 7 أيام",
+                    "رصيد أيام العارضة : 7 أيام",
                     style: kCardTextStyle,
                   ),
                 ],
@@ -90,7 +89,7 @@ class _VacationdayssettingsState extends State<Vacationdayssettings> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'عدد أيام رصيد السنوى',
+                    'اختر رصيد أيامك السنوية',
                     style: kCardTextStyle,
                   ),
                   _showWidget
@@ -107,7 +106,24 @@ class _VacationdayssettingsState extends State<Vacationdayssettings> {
                   GestureDetector(
                     onTap: () {
                       initPrefs();
-                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.purple,
+                          // content: Text('Total ListTiles: $listTileCount'),
+                          content: Text(
+                            'رصيد إجازاتك السنوية هو ${vacationDaysNumber}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(top: 30),
+                        ),
+                      );
+                      Future.delayed(Duration(seconds: 1), () {
+                        Navigator.pop(context);
+                      });
                     },
                     child: Container(
                       child: Center(
@@ -127,13 +143,14 @@ class _VacationdayssettingsState extends State<Vacationdayssettings> {
                   GestureDetector(
                     onTap: () {
                       initPrefs();
+                      Navigator.pop(context);
                       // vacationProvider.vacationProvNumber = vacationDaysNumber!;
                       // print(
                       //     'vacationProvider.vacationProvNumber is: ${vacationProvider.vacationProvNumber}');
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShowVacation()));
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ShowVacation()));
                     },
                     child: Container(
                       child: Center(

@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: Text(
           'الدليل الطبى 2025',
-          style: kReusableTextStyle.copyWith(fontSize: 18),
+          style: kReusableTextStyle.copyWith(fontSize: 16),
         ),
       ),
       // drawer: drawer(context),

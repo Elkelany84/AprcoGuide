@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/components/constants.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
@@ -148,111 +149,124 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                     );
                   }
                   final results = snapshot.data!.docs;
-                  return ListView.builder(
-                    itemCount: results.length,
-                    itemBuilder: (context, index) {
-                      final data =
-                          results[index].data() as Map<String, dynamic>;
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: AutoSizeText(
-                                    data['finalName'],
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.purple,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "ElMessiri",
+                  return AnimationLimiter(
+                    child: ListView.builder(
+                      itemCount: results.length,
+                      itemBuilder: (context, index) {
+                        final data =
+                            results[index].data() as Map<String, dynamic>;
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 375),
+                          child: SlideAnimation(
+                            verticalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: AutoSizeText(
+                                            data['finalName'],
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.purple,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "ElMessiri",
+                                            ),
+                                            minFontSize: 14,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            // child: Text(data['finalName'],
+                                            //     style: kCardTextStyle.copyWith(
+                                            //         fontSize: 16)),
+                                          ),
+                                        ),
+                                        // IconButton(
+                                        //   icon: Icon(
+                                        //     Icons.call,
+                                        //     color: Colors.purple[900],
+                                        //   ),
+                                        //   onPressed: () async {
+                                        //     var _phone = data['tel1'];
+                                        //     final Uri url =
+                                        //         Uri(scheme: "tel", path: _phone);
+                                        //     await launchUrl(url);
+                                        //   },
+                                        // ),
+                                        // IconButton(
+                                        //   icon: Icon(
+                                        //     Icons.my_location,
+                                        //     color: Colors.purple[900],
+                                        //   ),
+                                        //   onPressed: () {
+                                        //     _openInGoogleMaps(
+                                        //         data['finalName'] + data['address']);
+                                        //   },
+                                        // )
+                                      ],
                                     ),
-                                    minFontSize: 14,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    // child: Text(data['finalName'],
-                                    //     style: kCardTextStyle.copyWith(
-                                    //         fontSize: 16)),
+                                    subtitle: Text(
+                                      data['address'],
+                                      style: kCardSubtitleTextStyle,
+                                    ),
                                   ),
-                                ),
-                                // IconButton(
-                                //   icon: Icon(
-                                //     Icons.call,
-                                //     color: Colors.purple[900],
-                                //   ),
-                                //   onPressed: () async {
-                                //     var _phone = data['tel1'];
-                                //     final Uri url =
-                                //         Uri(scheme: "tel", path: _phone);
-                                //     await launchUrl(url);
-                                //   },
-                                // ),
-                                // IconButton(
-                                //   icon: Icon(
-                                //     Icons.my_location,
-                                //     color: Colors.purple[900],
-                                //   ),
-                                //   onPressed: () {
-                                //     _openInGoogleMaps(
-                                //         data['finalName'] + data['address']);
-                                //   },
-                                // )
-                              ],
-                            ),
-                            subtitle: Text(
-                              data['address'],
-                              style: kCardSubtitleTextStyle,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.call,
+                                          color: Colors.purple[900],
+                                        ),
+                                        onPressed: () async {
+                                          var _phone = data['tel1'];
+                                          final Uri url =
+                                              Uri(scheme: "tel", path: _phone);
+                                          await launchUrl(url);
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.my_location,
+                                          color: Colors.purple[900],
+                                        ),
+                                        onPressed: () {
+                                          _openInGoogleMaps(data['finalName'] +
+                                              " " +
+                                              data['address']);
+                                        },
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
+                                          Share.share(
+                                            (data['finalName'] +
+                                                ' والعنوان هو ' +
+                                                data['address'] +
+                                                ' ورقم التليفون ' +
+                                                data['tel1']),
+                                          );
+                                        },
+                                        icon: FaIcon(
+                                          FontAwesomeIcons.shareNodes,
+                                          color: Colors.orange[900],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(height: 1.0),
+                                ],
+                              ),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.call,
-                                  color: Colors.purple[900],
-                                ),
-                                onPressed: () async {
-                                  var _phone = data['tel1'];
-                                  final Uri url =
-                                      Uri(scheme: "tel", path: _phone);
-                                  await launchUrl(url);
-                                },
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.my_location,
-                                  color: Colors.purple[900],
-                                ),
-                                onPressed: () {
-                                  _openInGoogleMaps(data['finalName'] +
-                                      " " +
-                                      data['address']);
-                                },
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  // print(data.docs[index]['name'] +   ' والعنوان هو ' + data.docs[index]['address']+' ورقم التليفون '+ data.docs[index]['tel1'] );
-                                  Share.share(
-                                    (data['finalName'] +
-                                        ' والعنوان هو ' +
-                                        data['address'] +
-                                        ' ورقم التليفون ' +
-                                        data['tel1']),
-                                  );
-                                },
-                                icon: FaIcon(
-                                  FontAwesomeIcons.shareNodes,
-                                  color: Colors.orange[900],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Divider(height: 1.0),
-                        ],
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 },
               ),
